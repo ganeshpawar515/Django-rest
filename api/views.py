@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from base.models import Item
-from .serializers import ItemSerializer
+from base.models import Item,Joke
+from .serializers import ItemSerializer, JokeSerializer
 @api_view(['GET'])
 def getData(request):
     items=Item.objects.all()
@@ -15,4 +15,15 @@ def addData(request):
     if serializer.is_valid():
         serializer.save()
     return Response(serializer.data)
+
+import requests
+@api_view(["GET"])
+def getJoke(request):
+    # jokes=Joke.objects.all()
+    # serializer = JokeSerializer(jokes,many=True)
+    joke=requests.get("https://api.chucknorris.io/jokes/random")
+    joke=joke.json()
+    print("recieved: ",joke["value"])
+    return Response({"joke":joke["value"]})
+    
     
