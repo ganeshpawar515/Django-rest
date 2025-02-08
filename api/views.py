@@ -16,6 +16,15 @@ def addData(request):
         serializer.save()
     return Response(serializer.data)
 
+@api_view(["PUT","PATCH"])
+def updateData(request, pk):
+    item=Item.objects.get(pk=pk)
+    serializer=ItemSerializer(item,data=request.data, partial=(request.method=="PATCH"))
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(serializer.data,status=404)
+
 import requests
 @api_view(["GET"])
 def getJoke(request):
@@ -25,5 +34,7 @@ def getJoke(request):
     joke=joke.json()
     print("recieved: ",joke["value"])
     return Response({"joke":joke["value"]})
+
+
     
     
