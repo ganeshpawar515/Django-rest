@@ -15,6 +15,7 @@ class ProductSerializer(serializers.ModelSerializer):
         fields='__all__'
 @api_view(["GET","POST","PUT","PATCH","DELETE"])
 def farmProduct(request,id=None):
+    print("request data: ",request.session.session_key)
     if request.method=='GET':
         products=Product.objects.all()
         serializer = ProductSerializer(products,many=True)
