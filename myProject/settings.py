@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'api',
     'base',
     'farm',
-    'e_commerce'
+    'e_commerce',
+    'pizza'
 ]
 
 MIDDLEWARE = [
@@ -127,12 +128,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # This is required for PythonAnywhere
-STATIC_ROOT = "/home/ganeshpawar1/mySite/Django-rest/static_root"
+# STATIC_ROOT = "/home/ganeshpawar1/mySite/Django-rest/static_root"
 
 # If you have extra static files (optional)
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static_root')
-]
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static_root')
+# ]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
