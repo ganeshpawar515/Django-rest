@@ -1,4 +1,34 @@
 {% extends 'base.html' %}
+
+{% block title %}Your Cart{% endblock %}
+
 {% block content %}
-    <h1>Cart page showing pizzas in cart pending to be ordered</h1>
+<div class="container mt-4">
+    <h2 class="text-danger">Your Shopping Cart</h2>
+    {% if cart_items %}
+        <table class="table table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart_items %}
+                <tr>
+                    <td>{{ item.product.name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>${{ item.product.price }}</td>
+                    <td>${{ item.get_total_price }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <h4 class="text-end">Total: ${{ total_price }}</h4>
+    {% else %}
+        <p class="text-muted">Your cart is empty.</p>
+    {% endif %}
+</div>
 {% endblock %}
