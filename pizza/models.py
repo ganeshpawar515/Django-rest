@@ -28,3 +28,4 @@ class Product(models.Model):
         return f"{self.name} {self.price}"
     def is_availaible(self):
         return True
+

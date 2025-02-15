@@ -26,7 +26,8 @@ urlpatterns = [
     # path("", include("api.urls")),
     # path("", include("farm.urls"))
     # path("", include("e_commerce.urls"))
-    path("", include("pizza.urls"))
+    path("", include("pizza.urls")),
+    path("accounts/",include("account.urls"))
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
