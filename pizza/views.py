@@ -17,8 +17,22 @@ def cart(request,product_id=None):
     if request.method=="POST":
         u_product=Product.objects.get(id=product_id)
         u_cart,created = Cart.objects.get_or_create(user=request.user)
-        cart_item, created = CartItem.objects.get_or_create(cart=u_cart,product=u_product,quantity=1)
-        if not created:
-            cart_item.quantity+=1
+        print("quant:",request.POST)
+        # cart_item, created = CartItem.objects.get_or_create(cart=u_cart,product=u_product,quantity=request.POST["quantity"])
+        cart_item_exists = CartItem.objects.filter(cart=u_cart,product=u_product).exists()
+        if cart_item_exists:
+            cart_item = CartItem.objects.get(cart=u_cart,product=u_product)
+            cart_item.quantity+=int(request.POST["quantity"])
             cart_item.save()
-        return redirect('/')
+            return redirect('get_cart')
+        else:
+            cart_item = CartItem.objects.create(cart=u_cart,product=u_product,quantity=request.POST["quantity"])
+            cart_item.save()
+            return redirect('get_cart')
+        
+def cart_remove_all(request):
+    print("delete request received")
+    u_id = request.user.id
+    cart=Cart.objects.get(user=u_id)
+    cart.items.all().delete()
+    return redirect("get_cart")

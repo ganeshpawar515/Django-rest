@@ -27,6 +27,9 @@
             </tbody>
         </table>
         <h4 class="text-end">Total: ${{ total_price }}</h4>
+        <form action="{% url 'cart_remove_all'  %}">
+        <button type="submit">Remove all</button>
+        </form>
     {% else %}
         <p class="text-muted">Your cart is empty.</p>
     {% endif %}
