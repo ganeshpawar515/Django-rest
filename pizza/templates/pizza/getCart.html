@@ -30,6 +30,11 @@
         <form action="{% url 'cart_remove_all'  %}">
         <button type="submit">Remove all</button>
         </form>
+
+        <form action="{% url 'orders'  %}", method="post">
+            {% csrf_token %}
+            <button type="submit">Place Order</button>
+        </form>
     {% else %}
         <p class="text-muted">Your cart is empty.</p>
     {% endif %}

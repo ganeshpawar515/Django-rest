@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .models import Product,Cart,CartItem
+from .models import Product,Cart,CartItem, Order, OrderItem
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
@@ -36,3 +36,18 @@ def cart_remove_all(request):
     cart=Cart.objects.get(user=u_id)
     cart.items.all().delete()
     return redirect("get_cart")
+
+def order(request):
+    if request.method=="POST":
+        u_id = request.user.id
+        order = Order.objects.create(user=request.user)
+        cart=Cart.objects.get(user=u_id)
+        cart_items=cart.items.all()
+        for item in cart_items:
+            order_item = OrderItem.objects.create(order=order,product=item.product,quantity=item.quantity)
+            print("added:",order_item)
+        cart_items=cart.items.all().delete()
+        return redirect('get_cart')
+    if request.method=="GET":
+        orders=Order.objects.all()
+        return render(request, 'pizza/order.html',{"orders":orders})
